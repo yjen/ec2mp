@@ -23,7 +23,7 @@ parser.add_argument('--snapshot_dir', default='./snapshot_' + MODIFIER,
     help='Path to directory where snapshots are saved')
 parser.add_argument('--snapshot_prefix', default='place_net',
     help='Snapshot filename prefix')
-parser.add_argument('--iters', type=int, default=15*1000,
+parser.add_argument('--iters', type=int, default=100*1000,
     help='Total number of iterations to train the network')
 parser.add_argument('--batch', type=int, default=256,
     help='The batch size to use for training')
