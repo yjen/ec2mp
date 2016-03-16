@@ -137,19 +137,19 @@ def minialexnet(data, labels=None, train=False, param=learned_param,
     n.conv4, n.relu4 = conv_relu(n.relu3, 3, 384, pad=1, group=2, **conv_kwargs)
     n.conv5, n.relu5 = conv_relu(n.relu4, 3, 256, pad=1, group=2, **conv_kwargs)
     n.pool5 = max_pool(n.relu5, 3, stride=2, train=train)
-    n.fc6, n.relu6 = fc_relu(n.pool5, 512, param=param)
+    n.fc6, n.relu6 = fc_relu(n.pool5, 1024, param=param)
     n.drop6 = L.Dropout(n.relu6, in_place=True)
-    n.fc7, n.relu7 = fc_relu(n.drop6, 512, param=param)
+    n.fc7, n.relu7 = fc_relu(n.drop6, 1024, param=param)
     n.drop7 = L.Dropout(n.relu7, in_place=True)
-    #n.fc8, n.relu8 = fc_relu(n.drop7, 512, param=param)
-    #n.drop8 = L.Dropout(n.relu8, in_place=True)
-    preds = n.fc8 = L.InnerProduct(n.drop7, num_output=num_classes, param=param)
+    n.fc8, n.relu8 = fc_relu(n.drop7, 1024, param=param)
+    n.drop8 = L.Dropout(n.relu8, in_place=True)
+    preds = n.fc9 = L.InnerProduct(n.drop8, num_output=num_classes, param=param)
     if not train:
         # Compute the per-label probabilities at test/inference time.
-        preds = n.probs = L.Softmax(n.fc8)
+        preds = n.probs = L.Softmax(n.fc9)
     if with_labels:
         n.label = labels
-        n.loss = L.SoftmaxWithLoss(n.fc8, n.label)
+        n.loss = L.SoftmaxWithLoss(n.fc9, n.label)
         n.accuracy_at_1 = L.Accuracy(preds, n.label)
         n.accuracy_at_5 = L.Accuracy(preds, n.label,
                                      accuracy_param=dict(top_k=5))
@@ -356,7 +356,7 @@ def eval_net(split, K=5):
 
 if __name__ == '__main__':
     print 'Training net...\n'
-    #train_net()
+    train_net()
 
     print '\nTraining complete. Evaluating...\n'
     for split in ('train', 'val', 'test'):
