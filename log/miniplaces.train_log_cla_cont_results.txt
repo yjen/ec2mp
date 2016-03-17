@@ -1,0 +1,23 @@
+libdc1394 error: Failed to initialize libdc1394
+Training net...
+
+
+Training complete. Evaluating...
+
+Running evaluation for split: train
+	Accuracy at 1 = 43.61%
+	Accuracy at 5 = 73.63%
+	Softmax cross-entropy error = 2.1251
+Predictions for split train dumped to: top_5_predictions_cla_cont.train.csv
+
+Running evaluation for split: val
+	Accuracy at 1 = 32.74%
+	Accuracy at 5 = 62.22%
+	Softmax cross-entropy error = 2.6737
+Predictions for split val dumped to: top_5_predictions_cla_cont.val.csv
+
+Running evaluation for split: test
+Not computing accuracy; ground truth unknown for split: test
+Predictions for split test dumped to: top_5_predictions_cla_cont.test.csv
+
+Evaluation complete.
